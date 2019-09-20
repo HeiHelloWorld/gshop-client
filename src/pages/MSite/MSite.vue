@@ -11,22 +11,22 @@
     </Header>
     <!--首页导航-->
     <nav class="msite_nav">
-      <div class="swiper-container">
+      <div class="swiper-container" v-if="categorys.length">
         <div class="swiper-wrapper">
-          <!-- cateogorysArr -->
-          <div class="swiper-slide" v-for="(categorys, index) in categorysArr" :key="index">
-            <a href="javascript:" class="link_to_food" v-for="(category, index) in categorys" :key="index">
+          <div class="swiper-slide" v-for="(categorys,index) in categorysArr" :key="index">
+            <a href="javascript:" class="link_to_food" v-for="(category,index) in categorys" :key="index">
               <div class="food_container">
                 <img :src="'https://fuss10.elemecdn.com' + category.image_url">
               </div>
               <span>{{category.title}}</span>
             </a>
           </div>
-          
+
         </div>
         <!-- Add Pagination -->
         <div class="swiper-pagination"></div>
       </div>
+      <img src="./images/msite_back.svg" alt="loading" v-else>
     </nav>
     <ShopList/>
   </section>
@@ -35,39 +35,37 @@
 <script type="text/ecmascript-6">
   import chunk from "lodash/chunk"
   import Swiper from "swiper"
-  import "swiper/css/swiper.min.css"
-  import ShopList from '../../components/ShopList/ShopList'
+  import 'swiper/css/swiper.min.css'
+  import ShopList from '../../components/ShopList/ShopList.vue'
   import { mapState } from "vuex"
 
   export default {
 
-    mounted () {
-
-      //异步获取分类列表
-      this.$store.dispatch('getCategorys')
-
+    async mounted () {
+      this.$store.dispatch('getShops')
+      await this.$store.dispatch('getCategorys')
+      new Swiper('.swiper-container',{
+        loop: true,
+        pagination: {
+          el: '.swiper-pagination'
+        }
+      })
     },
 
     computed: {
       ...mapState(['address','categorys']),
 
-      //分类轮播的二维数组
+      //轮播图的二维数组,小数组的最大长度为8
       categorysArr () {
         const {categorys} = this
         return chunk(categorys,8)
       }
+
     },
 
     watch: {
-      categorys () {
-        this.$nextTick(() => {
-          new Swiper('.swiper-container',{
-            loop: true, //是否循环
-            pagination: { //如果需要分页器
-              el: '.swiper-container'
-            }
-          })
-        })
+      categorys(){
+        
       }
     },
 
