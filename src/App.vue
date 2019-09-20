@@ -6,14 +6,20 @@
 </template>
 
 <script>
-import FooterGuide from "./components/FooterGuide/FooterGuide"
-export default {
-  name: 'App',
+  import FooterGuide from "./components/FooterGuide/FooterGuide"
+  import {reqAddress} from './api/index'
+  export default {
+    name: 'App',
 
-  components: {
-    FooterGuide
+    async mounted (){
+      this.$store.dispatch('getAddress')
+      const result=await reqAddress("116.36867","40.10038")
+    },
+   
+    components: {
+      FooterGuide
+    }
   }
-}
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
