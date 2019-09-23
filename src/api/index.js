@@ -93,3 +93,13 @@ export const reqSmsLogin = ({phone,code}) => ajax({
     code
   }
 })
+
+/* 
+  自动登录
+*/
+
+
+
+export const reqInfo = () => ajax('/info')
+export const reqGoods = () => ajax('/goods')
+export const reqRatings = () => ajax('/ratings')

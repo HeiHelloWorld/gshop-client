@@ -32,7 +32,11 @@
     name: 'FooterGuide',
     methods: {
       goto (path) {
-        this.$router.replace(path)
+        if(this.$route.path !== path) {
+          this.$router.replace(path)
+        } else { //如果请求的路径就是当前路径, 直接强制刷新
+          window.location.reload()
+        }
       }
     }
   }

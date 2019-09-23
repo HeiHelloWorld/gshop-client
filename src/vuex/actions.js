@@ -5,12 +5,19 @@
 import {
   reqAddress,
   reqCategorys,
-  reqShops
+  reqShops,
+  reqGoods,
+  reqInfo,
+  reqRatings
 } from '../api'
 import {
   RECEIVE_ADDRESS,
   RECEIVE_SHOPS,
-  RECEIVE_CATEGORYS
+  RECEIVE_CATEGORYS,
+  RECEIVE_USER,
+  RECEIVE_GOODS,
+  RECEIVE_INFO,
+  RECEIVE_RATINGS
 } from './mutation-types'
 
 export default {
@@ -61,4 +68,48 @@ export default {
       typeof callback==='function' && callback()
     }
   },
+
+  /* 
+    保存用户的同步action
+  */
+  saveUser ({commit}, user) {
+    
+    commit(RECEIVE_USER,{user})
+  },
+
+  // 异步获取商家信息
+  async getShopInfo({commit}, cb) {
+    const result = await reqInfo()
+    if(result.code===0) {
+      const info = result.data
+      commit(RECEIVE_INFO, {info})
+
+      cb && cb()
+    }
+  },
+
+  // 异步获取商家评价列表
+  async getShopRatings({commit}, cb) {
+    const result = await reqRatings()
+    if(result.code===0) {
+      const ratings = result.data
+      commit(RECEIVE_RATINGS, {ratings})
+
+      cb && cb()
+    }
+  },
+
+  /* 
+    异步获取商家商品列表
+  */
+  async getShopGoods({commit}, cb){
+    const result = await reqGoods()
+    if(result === 0){
+      const goods = result.data
+      commit(RECEIVE_GOODS,{goods})
+      //如果组件中传递了接收消息的回调函数, 数据更新后，调用回调通知调用的组件
+      cb && cb()
+    }
+  },
+
 }

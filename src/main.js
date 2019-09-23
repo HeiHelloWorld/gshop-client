@@ -7,6 +7,7 @@ import Star from "./components/Star/Star.vue"
 import router from './router'
 import * as API from './api'
 import './validate'
+import  "./mock/mockServer"
 
 Vue.config.productionTip = false
 
