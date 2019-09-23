@@ -104,7 +104,7 @@ export default {
   */
   async getShopGoods({commit}, cb){
     const result = await reqGoods()
-    if(result === 0){
+    if(result.code === 0){
       const goods = result.data
       commit(RECEIVE_GOODS,{goods})
       //如果组件中传递了接收消息的回调函数, 数据更新后，调用回调通知调用的组件

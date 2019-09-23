@@ -114,7 +114,8 @@
       }
     },
     computed: {
-      ...mapState(['info'])
+      ...mapState(['info']),
+       ...mapState(['goods'])
     }
   }
 </script>
