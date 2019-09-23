@@ -41,6 +41,9 @@
 //封装ajax的模块
 import axios from "axios"
 import qs from "qs"
+import { messageBox, Toast } from 'mint-ui'
+import store from '../vuex/store'
+import router from '../router'
 
 //创建一个新的Axios实例
 const instance = axios.create({
