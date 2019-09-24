@@ -17,7 +17,8 @@
           <li class="food-list-hook" v-for="(good,index) in goods" :key="good.name">
             <h1 class="title">{{good.name}}</h1>
             <ul>
-              <li class="food-item bottom-border-1px" v-for="(food,index) in good.foods" :key="food.name">
+              <li class="food-item bottom-border-1px" v-for="(food, index) in good.foods" 
+                :key="food.name" @click="showFood(food)">
                 <div class="icon">
                   <img width="57" height="57"
                       :src="food.icon">
@@ -33,32 +34,7 @@
                     <span class="old" v-if="food.oldPrice">￥{{food.oldPrice}}</span>
                   </div>
                   <div class="cartcontrol-wrapper">
-                    CartControl组件
-                  </div>
-                </div>
-              </li>
-            </ul>
-          </li>
-          <li class="food-list food-list-hook">
-            <h1 class="title">香浓甜粥</h1>
-            <ul>
-              <li class="food-item bottom-border-1px">
-                <div class="icon">
-                  <img width="57" height="57" src="http://fuss10.elemecdn.com/6/72/cb844f0bb60c502c6d5c05e0bddf5jpeg.jpeg?imageView2/1/w/114/h/114">
-                </div>
-                <div class="content">
-                  <h2 class="name">红枣山药粥</h2>
-                  <p class="desc">红枣山药糙米粥,素材包</p>
-                  <div class="extra">
-                    <span class="count">月售17份</span>
-                    <span>好评率100%</span>
-                  </div>
-                  <div class="price">
-                    <span class="now">￥29</span>
-                    <span class="old">￥36</span>
-                  </div>
-                  <div class="cartcontrol-wrapper">
-                    CartControl组件
+                    <CartControl/>
                   </div>
                 </div>
               </li>
@@ -67,19 +43,30 @@
         </ul>
       </div>
     </div>
+    <Food :food="food" ref="food"/>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+
   import BScroll from '@better-scroll/core'
   import { mapState } from 'vuex'
+
+  import Food from '../../components/Food/Food'
+
   export default {
 
     data () {
       return {
         scrollY: 0, //右侧列表滑动的y轴坐标，右侧滑动时实时更新
         tops: [],  //右侧所有分类的<li>的top的数组，在列表显示之后更新一次
+        food: {},  //需要显示的food
+        isShowFood: false,
       }
+    },
+
+    components: {
+      Food
     },
 
     mounted () {
@@ -177,6 +164,14 @@
 
         //让右侧列表滑动到对应位置
         this.rightScroll.scrollTo(0, -top, 300)
+      },
+
+      /* 显示指定的food */
+      showFood (food) {
+        //指定要显示的数据
+        this.food = food
+        //显示food组件界面
+        this.$refs.food.toggleShow()
       }
 
     },
