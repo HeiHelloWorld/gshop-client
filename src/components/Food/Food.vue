@@ -19,7 +19,7 @@
           <span class="old" v-if="food.oldPrice">￥{{food.oldPrice}}</span>
         </div>
         <div class="cartcontrol-wrapper">
-          cartcontrol组件
+          <CartControl :food="food"/>
         </div>
       </div>
     </div>

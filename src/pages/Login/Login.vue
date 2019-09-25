@@ -168,7 +168,7 @@
             this.$store.dispatch('saveUser',user) //保存user到state
             this.$router.replace('/profile') //跳转到个人中心
           } else {   
-            MessageBox.alert(result.msg)
+            MessageBox('提示',result.msg)
           }
 
         }

@@ -34,7 +34,7 @@
                     <span class="old" v-if="food.oldPrice">￥{{food.oldPrice}}</span>
                   </div>
                   <div class="cartcontrol-wrapper">
-                    <CartControl/>
+                    <CartControl :food="food"/>
                   </div>
                 </div>
               </li>
@@ -42,6 +42,7 @@
           </li>
         </ul>
       </div>
+      <ShopCart/>
     </div>
     <Food :food="food" ref="food"/>
   </div>
@@ -53,6 +54,7 @@
   import { mapState } from 'vuex'
 
   import Food from '../../components/Food/Food'
+  import ShopCart from "../../components/ShopCart/ShopCart"
 
   export default {
 
@@ -66,7 +68,8 @@
     },
 
     components: {
-      Food
+      Food,
+      ShopCart
     },
 
     mounted () {
