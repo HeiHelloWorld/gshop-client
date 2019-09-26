@@ -8,10 +8,12 @@ import App from './App.vue'
 import Header from "./components/Header/Header.vue"
 import Star from "./components/Star/Star.vue"
 import CartControl from './components/CartControl/CartControl.vue'
+import Split from "./components/Split/Split.vue"
 import router from './router'
 import * as API from './api'
 import './validate'
 import  "./mock/mockServer"
+import  "./filters"
 
 Vue.use(VueLazyload,{
   loading
@@ -25,7 +27,10 @@ Vue.prototype.$API = API
 Vue.component('Header', Header)
 Vue.component('Star',Star)
 Vue.component('CartControl', CartControl)
+Vue.component('Split', Split)
 Vue.component(Button.name,Button)
+
+Vue.prototype.$eventBus = new Vue()
 
 new Vue({
   render: h => h(App),
